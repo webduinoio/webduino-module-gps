@@ -23,21 +23,21 @@
 
   function GPS(board, rx, tx) {
     Module.call(this);
-
     this._type = 'GPS';
     this._board = board;
     this._rx = rx;
     this._tx = tx;
     this._longitude = null;
     this._latitude = null;
+    this._date = null;
     this._time = null;
     this._lastRecv = null;
     this._readTimer = null;
     this._readCallback = function () {};
-
     this._board.on(BoardEvent.BEFOREDISCONNECT, this.stopRead.bind(this));
     this._messageHandler = onMessage.bind(this);
     this._board.on(BoardEvent.ERROR, this.stopRead.bind(this));
+    board.send([0xF0, 0x04, 0x0C, 0x0 /*init*/ , rx, tx, 0xF7]);
   }
 
   function onMessage(event) {
@@ -50,9 +50,23 @@
     }
   }
 
+  function toDateTime(date, time) {
+    var t = Date.parse(date + ' ' + time) + 8 * 60 * 60 * 1000; //GMT+8
+    var date = new Date(t);
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+    var time = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    var mm = date.getMonth() + 1;
+    var dd = "0" + date.getDate();
+    var yyyy = date.getFullYear();
+    var date = mm + '/' + dd.substr(-2) + '/' + yyyy;
+    return [date, time];
+  }
+
   function processGPSData(self, data) {
     var str = '';
-    for (var i = 4; i < data.length; i++) {
+    for (var i = 3; i < data.length; i++) {
       str += String.fromCharCode(data[i]);
     }
     str = str.split(' ');
@@ -60,8 +74,10 @@
     self._lastRecv = Date.now();
     self._longitude = location[0];
     self._latitude = location[1];
-    self._time = str[1];
-    self.emit(GPSEvent.READ, location[0], location[1], str[1]);
+    var date_time = toDateTime(str[1], str[2]);
+    self._date = date_time[0];
+    self._time = date_time[1];
+    self.emit(GPSEvent.READ, location[0], location[1], date_time[0], date_time[1]);
   }
 
   GPS.prototype = proto = Object.create(Module.prototype, {
@@ -78,6 +94,11 @@
         return this._latitude;
       }
     },
+    date: {
+      get: function () {
+        return this._date;
+      }
+    },
     time: {
       get: function () {
         return this._time;
@@ -92,12 +113,13 @@
     self.stopRead();
 
     if (typeof callback === 'function') {
-      self._readCallback = function (longitude, latitude, time) {
-        self._location = location;
+      self._readCallback = function (longitude, latitude, date, time) {
+        self._date = date;
         self._time = time;
         callback({
           longitude: longitude,
           latitude: latitude,
+          date: date,
           time: time
         });
       };
@@ -105,7 +127,7 @@
       self.on(GPSEvent.READ, self._readCallback);
 
       timer = function () {
-        self._board.sendSysex(GPS_MESSAGE[0], [GPS_MESSAGE[1]]);
+        self._board.sendSysex(GPS_MESSAGE[0], [GPS_MESSAGE[1], 1]);
         if (interval) {
           interval = Math.max(interval, MIN_READ_INTERVAL);
           if (self._lastRecv === null || Date.now() - self._lastRecv < 5 * interval) {
@@ -123,8 +145,10 @@
     } else {
       return new Promise(function (resolve, reject) {
         self.read(function (data) {
-          self._location = data.location;
+          self._longitude = data.longitude;
+          self._latitude = data.latitude;
           self._time = data.time;
+          self._date = data.date;
           setTimeout(function () {
             resolve(data);
           }, MIN_RESPONSE_TIME);

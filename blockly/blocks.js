@@ -55,7 +55,7 @@ Blockly.Blocks['gps_read'] = {
     this.setNextStatement(true, null);
     this.setColour(65);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('https://webduino.io');
   }
 };
 
@@ -65,10 +65,10 @@ Blockly.Blocks['gps_get_data'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable("gps"), "gps")
         .appendField("所測得目前的")
-        .appendField(new Blockly.FieldDropdown([["經度", "longitude"], ["緯度", "latitude"], ["時間", "time"]]), "dataType");
+        .appendField(new Blockly.FieldDropdown([["經度", "longitude"], ["緯度", "latitude"], ["日期", "date"], ["時間", "time"]]), "dataType");
     this.setOutput(true, null);
     this.setColour(20);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('https://webduino.io');
   }
 };
