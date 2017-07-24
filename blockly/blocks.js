@@ -1,7 +1,7 @@
 Blockly.Blocks['gps_new'] = {
   init: function () {
     this.appendDummyInput()
-      .appendField(Blockly.Msg.WEBDUINO_GPS_RX, "GPS定位，rx")
+      .appendField(Blockly.Msg.WEBDUINO_GPS_RX)
       .appendField(new Blockly.FieldDropdown([
         ["2", "2"],
         ["3", "3"],
@@ -16,7 +16,7 @@ Blockly.Blocks['gps_new'] = {
         ["12", "12"],
         ["13", "13"]
       ]), "rx_")
-      .appendField(Blockly.Msg.WEBDUINO_GPS_TX, "  tx")
+      .appendField(Blockly.Msg.WEBDUINO_GPS_TX)
       .appendField(new Blockly.FieldDropdown([
         ["2", "2"],
         ["3", "3"],
@@ -44,12 +44,13 @@ Blockly.Blocks['gps_read'] = {
     this.appendValueInput("qryTime")
       .setCheck(null)
       .appendField(new Blockly.FieldVariable("gps"), "gps")
-      .appendField("取得經緯度和時間，每");
+      .appendField(Blockly.Msg.WEBDUINO_GPS_GET_CORD);
+      .appendField(Blockly.Msg.WEBDUINO_GPS_EVERY);
     this.appendDummyInput()
-      .appendField("毫秒執行一次");
+      .appendField(Blockly.Msg.WEBDUINO_GPS_RUN_EVERY_MS);
     this.appendStatementInput("callback")
       .setCheck(null)
-      .appendField("執行");
+      .appendField(Blockly.Msg.WEBDUINO_GPS_DO);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -59,13 +60,17 @@ Blockly.Blocks['gps_read'] = {
   }
 };
 
-
 Blockly.Blocks['gps_get_data'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldVariable("gps"), "gps")
-        .appendField("所測得目前的")
-        .appendField(new Blockly.FieldDropdown([["經度", "longitude"], ["緯度", "latitude"], ["日期", "date"], ["時間", "time"]]), "dataType");
+        .appendField(Blockly.Msg.WEBDUINO_GPS_CURRENT_VALUE)
+        .appendField(new Blockly.FieldDropdown([
+          [Blockly.Msg.WEBDUINO_GPS_CURRENT_LONGITUDE, "longitude"],
+          [Blockly.Msg.WEBDUINO_GPS_CURRENT_LATITUDE, "latitude"],
+          [Blockly.Msg.WEBDUINO_GPS_CURRENT_DATE, "date"],
+          [Blockly.Msg.WEBDUINO_GPS_CURRENT_TIME, "time"]
+        ]), "dataType");
     this.setOutput(true, null);
     this.setColour(20);
     this.setTooltip('');
