@@ -44,7 +44,7 @@ Blockly.Blocks['gps_read'] = {
     this.appendValueInput("qryTime")
       .setCheck(null)
       .appendField(new Blockly.FieldVariable("gps"), "gps")
-      .appendField(Blockly.Msg.WEBDUINO_GPS_GET_CORD);
+      .appendField(Blockly.Msg.WEBDUINO_GPS_GET_CORD)
       .appendField(Blockly.Msg.WEBDUINO_GPS_EVERY);
     this.appendDummyInput()
       .appendField(Blockly.Msg.WEBDUINO_GPS_RUN_EVERY_MS);
@@ -72,7 +72,7 @@ Blockly.Blocks['gps_get_data'] = {
           [Blockly.Msg.WEBDUINO_GPS_CURRENT_TIME, "time"]
         ]), "dataType");
     this.setOutput(true, null);
-    this.setColour(20);
+    this.setColour(35);
     this.setTooltip('');
     this.setHelpUrl('https://webduino.io');
   }
