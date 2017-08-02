@@ -1,6 +1,6 @@
 {
   "types": ["gps_new","gps_read","gps_get_number"],
-  "category": "catMenu2",
+  "category": "catMenu4",
   "scripts": [
     "blockly/blocks.js",
     "blockly/javascript.js"
