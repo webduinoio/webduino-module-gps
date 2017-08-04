@@ -1,5 +1,5 @@
 var mainUrl = 'https://tutorials.webduino.io/zh-tw/docs/';
-var utmUrl = '?utm_source=cloud-blockly&utm_campaign=help_url';
+var utmUrl = '?utm_source=cloud-blockly&utm_medium=help&utm_campaign=help_url';
 
 Blockly.Blocks['gps_new'] = {
   init: function () {
