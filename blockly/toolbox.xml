@@ -1,4 +1,4 @@
-<category id="catGPS" tags="fly,mark1">
+<category id="catGPS" tags="fly,mark1" index="2">
   <block type="variables_set">
     <field name="VAR">gps</field>
     <value name="VALUE">
