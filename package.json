@@ -1,17 +1,17 @@
 {
-  "name": "webduino-module-lcd1602",
+  "name": "webduino-module-gps",
   "version": "1.0.0",
-  "description": "LCD1602 Module for Webduino",
-  "main": "LCD1602.js",
+  "description": "GPS Module for Webduino",
+  "main": "GPS.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "keywords": [
     "arduino",
     "webduino",
-    "lcd1602"
+    "gps"
   ],
   "dependencies": {
     "webduino-js": "0.x"
