@@ -34,7 +34,7 @@ Blockly.Blocks['gps_new'] = {
     this.setOutput(true);
     this.setColour(230);
     this.setTooltip('');
-    this.setHelpUrl('https://webduino.io');
+    this.setHelpUrl('');
   }
 };
 
@@ -55,7 +55,7 @@ Blockly.Blocks['gps_read'] = {
     this.setNextStatement(true, null);
     this.setColour(65);
     this.setTooltip('');
-    this.setHelpUrl('https://webduino.io');
+    this.setHelpUrl('');
   }
 };
 
@@ -69,6 +69,6 @@ Blockly.Blocks['gps_get_data'] = {
     this.setOutput(true, null);
     this.setColour(20);
     this.setTooltip('');
-    this.setHelpUrl('https://webduino.io');
+    this.setHelpUrl('');
   }
 };
