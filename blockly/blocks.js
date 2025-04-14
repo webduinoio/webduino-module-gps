@@ -37,7 +37,7 @@ Blockly.Blocks['gps_new'] = {
     this.setOutput(true);
     this.setColour(230);
     this.setTooltip('');
-    this.setHelpUrl(mainUrl + 'basic/index.html' + utmUrl); 
+    this.setHelpUrl('');
   }
 };
 
@@ -59,7 +59,7 @@ Blockly.Blocks['gps_read'] = {
     this.setNextStatement(true, null);
     this.setColour(65);
     this.setTooltip('');
-    this.setHelpUrl(mainUrl + 'basic/index.html' + utmUrl); 
+    this.setHelpUrl('');
   }
 };
 
@@ -77,6 +77,6 @@ Blockly.Blocks['gps_get_data'] = {
     this.setOutput(true, null);
     this.setColour(35);
     this.setTooltip('');
-    this.setHelpUrl(mainUrl + 'basic/index.html' + utmUrl); 
+    this.setHelpUrl('');
   }
 };
